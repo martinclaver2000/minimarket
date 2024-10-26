@@ -8,6 +8,12 @@ use PHPUnit\Framework\TestCase;
 
 class AccountTest extends TestCase
 {
+    public function testGetIdInitiallyNull(): void
+    {
+        $account = new Account();
+        $this->assertNull($account->getId());
+    }
+
     public function testSetAndGetCreatedAt(): void
     {
         $account = new Account();
@@ -17,7 +23,7 @@ class AccountTest extends TestCase
         $this->assertSame($date, $account->getCreatedAt());
     }
 
-    public function testSetAndGetCreatedAtOwner()
+    public function testSetAndGetCreatedAtOwner(): void
     {
         $account = new Account();
         $user = new User();

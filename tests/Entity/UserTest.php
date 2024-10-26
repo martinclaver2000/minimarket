@@ -13,16 +13,16 @@ class UserTest extends TestCase
         $this->assertNull($user->getId());
     }
 
-    public function testSetAndGetEmail()
+    public function testSetAndGetEmail(): void
     {
         $user = new User();
-        $email = "martinclaver2000@gmail.com";
+        $email = 'martinclaver2000@gmail.com';
 
         $user->setEmail($email);
         $this->assertSame($email, $user->getEmail());
     }
 
-    public function testSetAndGetRoles()
+    public function testSetAndGetRoles(): void
     {
         $user = new User();
         $roles = ['ROLE_USER'];
@@ -31,31 +31,30 @@ class UserTest extends TestCase
         $this->assertSame($roles, $user->getRoles());
     }
 
-    public function testSetAndGetPassword()
+    public function testSetAndGetPassword(): void
     {
         $user = new User();
-        $email = "Password1@!";
+        $email = 'Password1@!';
 
         $user->setEmail($email);
         $this->assertSame($email, $user->getEmail());
     }
 
-    public function testSetAndGetLastName()
+    public function testSetAndGetLastName(): void
     {
         $user = new User();
-        $lastName = "Yao";
+        $lastName = 'Yao';
 
         $user->setLastName($lastName);
         $this->assertSame($lastName, $user->getLastName());
     }
 
-    public function testSetAndGetFirstName()
+    public function testSetAndGetFirstName(): void
     {
         $user = new User();
-        $firstName = "Kouandou Gnagne Martin Claver";
+        $firstName = 'Kouandou Gnagne Martin Claver';
 
         $user->setFirstName($firstName);
         $this->assertSame($firstName, $user->getFirstName());
     }
-
 }
