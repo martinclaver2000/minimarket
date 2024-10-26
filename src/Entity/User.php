@@ -46,6 +46,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
+    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
+    private ?Account $account = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +156,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(?string $firstName): static
     {
         $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getAccount(): ?Account
+    {
+        return $this->account;
+    }
+
+    public function setAccount(Account $account): static
+    {
+        // set the owning side of the relation if necessary
+        if ($account->getOwner() !== $this) {
+            $account->setOwner($this);
+        }
+
+        $this->account = $account;
 
         return $this;
     }
