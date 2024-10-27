@@ -23,7 +23,7 @@ class AccountTest extends TestCase
         $this->assertSame($date, $account->getCreatedAt());
     }
 
-    public function testSetAndGetCreatedAtOwner(): void
+    public function testSetAndGetOwner(): void
     {
         $account = new Account();
         $user = new User();
