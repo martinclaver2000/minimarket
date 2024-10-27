@@ -74,6 +74,7 @@
     },
     "scripts": {
         "test": "php bin/phpunit",
+        "test-testdox": "php bin/phpunit --testdox",
         "phpstan": "vendor/bin/phpstan analyse src tests",
         "fix": "vendor/bin/php-cs-fixer fix",
         "auto-scripts": {
