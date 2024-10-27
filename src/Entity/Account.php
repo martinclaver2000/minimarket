@@ -36,6 +36,7 @@ class Account
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable('now');
         $this->ads = new ArrayCollection();
         $this->favorites = new ArrayCollection();
     }

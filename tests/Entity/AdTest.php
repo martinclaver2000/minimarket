@@ -141,4 +141,13 @@ class AdTest extends TestCase
         $ad->setAddress($address);
         $this->assertSame($address, $ad->getAddress());
     }
+
+    public function testSetAndGetSlug(): void
+    {
+        $ad = new Ad();
+        $slug = 'slug';
+
+        $ad->setSlug($slug);
+        $this->assertSame($slug, $ad->getSlug());
+    }
 }
