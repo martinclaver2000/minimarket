@@ -85,10 +85,14 @@ class Ad
     #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'ad')]
     private Collection $favorites;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -365,6 +369,18 @@ class Ad
                 $favorite->setAd(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
