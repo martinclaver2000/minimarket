@@ -25,7 +25,6 @@ class AppFixtures extends Fixture
 
         AdFactory::createMany(100, function () {
             return [
-                'category' => CategoryFactory::random(),
                 'account' => AccountFactory::random(),
             ];
         });

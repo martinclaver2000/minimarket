@@ -20,6 +20,14 @@ The following commands allow in order: to install the dependencies of the minima
 ```bash
 composer install
 docker compose up -d
+symfony console d:m:m -n
+symfony console d:f:l -n
 symfony serve -d
 symfony open:local
+```
+
+## Run tests
+
+```bash
+composer test
 ```
