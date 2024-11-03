@@ -45,11 +45,11 @@ final class AdFactory extends PersistentProxyObjectFactory
             'adStatus' => self::faker()->randomElement(AdStatusEnum::cases()),
             'address' => self::faker()->address(),
             'description' => self::faker()->text(),
-            'messageContactCount' => self::faker()->numberBetween(),
-            'price' => self::faker()->text(255),
+            'messageContactCount' => self::faker()->randomNumber(3, false),
+            'price' => self::faker()->randomNumber(5, false),
             'title' => $this->generateTitleForCategory($category),
-            'viewsCount' => self::faker()->numberBetween(),
-            'whatsappContactCount' => self::faker()->numberBetween(),
+            'viewsCount' => self::faker()->randomNumber(3, false),
+            'whatsappContactCount' => self::faker()->randomNumber(3, false),
             'category' => $category,
         ];
     }

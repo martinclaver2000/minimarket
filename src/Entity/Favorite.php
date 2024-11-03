@@ -17,12 +17,12 @@ class Favorite
     #[ORM\JoinColumn(nullable: false)]
     private ?Ad $ad = null;
 
-    #[ORM\ManyToOne(inversedBy: 'favorites')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Account $Account = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'favorites')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
 
     public function __construct()
     {
@@ -46,18 +46,6 @@ class Favorite
         return $this;
     }
 
-    public function getAccount(): ?Account
-    {
-        return $this->Account;
-    }
-
-    public function setAccount(?Account $Account): static
-    {
-        $this->Account = $Account;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -66,6 +54,18 @@ class Favorite
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }

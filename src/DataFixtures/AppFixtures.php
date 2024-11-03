@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
         FavoriteFactory::createMany(100, function () {
             return [
                 'ad' => AdFactory::random(),
-                'account' => AccountFactory::random(),
+                'owner' => UserFactory::random(),
             ];
         });
     }
