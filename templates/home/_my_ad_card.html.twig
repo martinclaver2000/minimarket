@@ -8,10 +8,10 @@
             <h6>{{ad.title|u.truncate(30,'...')}}</h6>
             <div>{{ad.price}}</div> 
             <div>
-                <i class="fa-regular fa-eye color-primary">{{ad.viewsCount}}</i>
-                <i class="fa-regular fa-heart color-danger">{{ad.favorites|length}}</i>
-                <i class="fa-solid fa-phone color-primary">{{ad.messageContactCount}}</i>
-                <i class="fa-regular fa-whatsapp color-success">{{ad.whatsappContactCount}}</i>
+                <i class="fa-regular fa-eye text-primary"></i>{{ad.viewsCount}}
+                <i class="fa-solid fa-heart text-danger"></i>{{ad.favorites|length}}
+                <i class="fa-solid fa-phone text-primary"></i>{{ad.messageContactCount}}
+                <i class="fa-brands fa-whatsapp text-success"></i>{{ad.whatsappContactCount}}
             </div>
         </div>
     </div>
