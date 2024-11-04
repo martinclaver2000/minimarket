@@ -26,13 +26,60 @@
                         Others
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Personal articles</a></li>
+                        <li><a class="dropdown-item" href="#">For home and garden</a></li>
+                        <li><a class="dropdown-item" href="#">Spare parts and accessories</a></li>
+                        <li><a class="dropdown-item" href="#">Hobbies and recreation</a></li>
+                        <li><a class="dropdown-item" href="#">Animals</a></li>
+                        <li><a class="dropdown-item" href="#">Business and equipments</a></li>
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
-                <a href="{{ path('app_login') }}" class="btn btn-outline-primary">Publish an ad</a>
+            <form class="d-flex align-items-center">
+                <i class="fa-solid fa-heart fa-lg me-2 text-secondary"></i>
+                <i class="fa-solid fa-bell fa-lg me-2 text-secondary"></i>
+                {% if app.user %}
+                    <div class="dropdown">
+                        <div class="me-2 dropdown-toggle d-flex align-items-center" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user-circle fa-2x text-secondary"></i>Martin claver
+                        </div>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    Ads
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-solid fa-heart"></i>
+                                    Favorites
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-solid fa-gear"></i>
+                                    Settings
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{path('app_logout')}}">
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-outline-primary">Publish an ad</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-primary">Publish an ad</a>
+                {% endif %}                
             </form>
         </div>
     </div>

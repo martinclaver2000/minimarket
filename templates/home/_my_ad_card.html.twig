@@ -2,10 +2,14 @@
 <div class="mb-1">
     <div class="row">
         <div class="col-4 px-0 pe-1">
-            <img src="https://via.placeholder.com/400x300" class="img-fluid" alt="...">
+            <a href="{{ path('app_ad', {slug:ad.slug}) }}"><img src="https://via.placeholder.com/400x300" class="img-fluid" alt="..."></a>
         </div>
         <div class="col-8 px-0">
-            <h6>{{ad.title|u.truncate(30,'...')}}</h6>
+            <h6>
+                <a href="{{ path('app_ad', {slug:ad.slug}) }}" class="text-decoration-none">
+                    {{ad.title|u.truncate(30,'...')}}
+                </a>
+            </h6>
             <div>{{ad.price}}</div> 
             <div>
                 <i class="fa-regular fa-eye text-primary"></i>{{ad.viewsCount}}
