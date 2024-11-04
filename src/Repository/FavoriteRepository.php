@@ -18,8 +18,8 @@ class FavoriteRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Favorite[] Returns an array of Favorite objects
-    */
+     * @return Favorite[] Returns an array of Favorite objects
+     */
     public function findLastThreeFavoritesByUser(): array
     {
         // Récupère l'utilisateur actuellement connecté

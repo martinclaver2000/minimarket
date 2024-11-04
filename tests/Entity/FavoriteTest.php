@@ -2,9 +2,9 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\Account;
 use App\Entity\Ad;
 use App\Entity\Favorite;
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class FavoriteTest extends TestCase
@@ -36,9 +36,9 @@ class FavoriteTest extends TestCase
     public function testSetAndGetAccount(): void
     {
         $favorite = new Favorite();
-        $account = new Account();
+        $owner = new User();
 
-        $favorite->setAccount($account);
-        $this->assertSame($account, $favorite->getAccount());
+        $favorite->setOwner($owner);
+        $this->assertSame($owner, $favorite->getOwner());
     }
 }

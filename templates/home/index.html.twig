@@ -13,13 +13,22 @@
             </div>
         </div>
         <div class="col-lg-3 d-none d-lg-block">
+            {% if myAds|length > 0 %}        
+                <div class="row mb-2">
+                    <h5>My ads</h5>
+                    {% for ad in myAds %}
+                        {% include "home/_my_ad_card.html.twig" %}
+                    {% endfor %}
+                <a href="#" class="btn btn-secondary form-control">All my ads</a>
+                </div>
+            {% endif %}
             {% if favorites|length > 0 %}        
                 <div class="row">
                     <h5>My favorites</h5>
                     {% for favorite in favorites %}
                         {% include "home/_favorite_card.html.twig" %}
                     {% endfor %}
-                <a href="#" class="btn btn-secondary form-control">All favorites</a>
+                <a href="#" class="btn btn-secondary form-control">All my favorites</a>
                 </div>
             {% endif %}        
         </div>
