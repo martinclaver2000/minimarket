@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ad;
 use App\Repository\AdRepository;
 use App\Repository\FavoriteRepository;
+use App\Service\CategoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,8 +24,11 @@ class HomeController extends AbstractController
     }
 
     #[Route('/ads/{slug}', name: 'app_ad', methods: ['GET'])]
-    public function show(Ad $ad, EntityManagerInterface $entityManager): Response
-    {
+    public function show(
+        Ad $ad,
+        EntityManagerInterface $entityManager,
+        CategoryService $categoryService,
+    ): Response {
         $ad->incrementViewsCount();
         $entityManager->persist($ad);
         $entityManager->flush();
@@ -36,6 +40,7 @@ class HomeController extends AbstractController
         return $this->render('home/show.html.twig', [
             'ad' => $ad,
             'similarAds' => $similarAds,
+            'categoriesHierachy' => $categoryService->getCategoryHierarchy($ad->getCategory()),
         ]);
     }
 }

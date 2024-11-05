@@ -6,7 +6,13 @@
 <div class="container-fluid">
     <div class="row m-1">
         <div class="col-lg-9">
-            <div class="text-secondary">home > transport > voitures > mercedes</div>            
+            <div class="text-secondary">
+                <span><a href="{{ path('app_home') }}" class="text-decoration-none">Home</a></span> >
+                {% for category in categoriesHierachy %}                    
+                    <span><a href="#" class="text-decoration-none">{{ category.name|capitalize}}</a></span>
+                    {% if not loop.last %} >{% endif %}                    
+                {% endfor %}
+            </div>            
             <div class="row">
                 <div class="col-8">
                     <h1>{{ ad.title }}</h1>
@@ -20,7 +26,7 @@
                     <div class="ms-1">{{ ad.address }}</div>
                     <h2 class="mt-3 mb-2 ms-1">Description</h2>
                     <div class="ms-1">{{ ad.description }}</div>
-                    <div class="ms-1 mt-4">№ 4375841305 · 3 ноября в 10:53 · 11186 просмотров (+0 сегодня)</div>
+                    <div class="ms-1 mt-4">№ {{ad.id}} · {{ad.createdAt|date('d F Y H:i')}} · {{ad.viewsCount}} views (+0 today)</div>
                     <h3 class="mt-3 mb-2 ms-1">
                         <div type="button"  data-bs-toggle="collapse" data-bs-target="#similarAds" aria-expanded="true" aria-controls="similarAds">
                             Other ads
@@ -49,9 +55,9 @@
                         </div>
                         <div class="d-flex justify-content-between mt-4">
                             <div>
-                                <h5 class="my-2">YAO K.G.M.C</h5>
-                                <div class="my-2">На Авито c 2023 года</div>
-                                <div class="my-2">3 объявления</div>
+                                <h5 class="my-2">{{ ad.account.owner|initials }}</h5>
+                                <div class="my-2">On MiniMarket since {{ad.account.createdAt|date('d F Y')}}</div>
+                                <div class="my-2">{{ad.account.ads|length}} ads</div>
                                 <div class="my-2">
                                     <span class="badge bg-primary">Primary</span>
                                     <span class="badge bg-primary">Primary</span>
