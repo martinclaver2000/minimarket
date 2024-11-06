@@ -11,8 +11,6 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  */
 final class CategoryFactory extends PersistentProxyObjectFactory
 {
-    private const CATEGORY_NAMES = ['phone', 'car', 'service', 'computer', 'notebook'];
-
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
@@ -34,9 +32,7 @@ final class CategoryFactory extends PersistentProxyObjectFactory
      */
     protected function defaults(): array|callable
     {
-        return [
-            'name' => self::faker()->randomElement(self::CATEGORY_NAMES),
-        ];
+        return [];
     }
 
     /**
@@ -46,7 +42,8 @@ final class CategoryFactory extends PersistentProxyObjectFactory
     {
         return $this
             ->afterInstantiate(function (Category $category): void {
-                $category->setSlug($this->slugger->slug($category->getName().' '.uniqid(), '_'));
+                $slug = strtolower($this->slugger->slug($category->getName().' '.uniqid(), '_'));
+                $category->setSlug($slug);
             })
         ;
     }
