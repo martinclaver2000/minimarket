@@ -18,7 +18,7 @@ class AdRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Ad[] Returns an array of Favorite objects
+     * @return Ad[] Returns an array of Ad objects
      */
     public function findLastThreeAdsByUser(): array
     {
@@ -37,7 +37,8 @@ class AdRepository extends ServiceEntityRepository
             ->orderBy('ad.createdAt', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     //    /**

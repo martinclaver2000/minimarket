@@ -10,8 +10,6 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  */
 final class ImageFactory extends PersistentProxyObjectFactory
 {
-    private const FILE_NAMES = ['image.png', 'image.jpeg', 'image.webp'];
-
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
@@ -34,8 +32,7 @@ final class ImageFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'ad' => AdFactory::new(),
-            'fileName' => self::faker()->randomElement(self::FILE_NAMES),
+            'fileName' => 'https://via.placeholder.com/400x300.png',
         ];
     }
 

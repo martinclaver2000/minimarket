@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Entity\Ad;
 use App\Entity\Category;
 use App\Enum\AdStatusEnum;
+use App\Repository\CategoryRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
@@ -22,7 +23,7 @@ final class AdFactory extends PersistentProxyObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct(private SluggerInterface $slugger)
+    public function __construct(private SluggerInterface $slugger, private CategoryRepository $categoryRepository)
     {
     }
 
@@ -38,8 +39,8 @@ final class AdFactory extends PersistentProxyObjectFactory
      */
     protected function defaults(): array|callable
     {
-        // Choose a random category
-        $category = CategoryFactory::random();
+        $categories = $this->categoryRepository->findWithoutChildren();
+        $category = self::faker()->randomElement($categories);
 
         return [
             'adStatus' => self::faker()->randomElement(AdStatusEnum::cases()),

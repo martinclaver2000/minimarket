@@ -42,8 +42,12 @@ class AppFixtures extends Fixture
         });
     }
 
-    // Fonction récursive pour créer les catégories
-    public function createCategories(?Category $parent = null, array $categories = null): void
+    /**
+     * Fonction récursive pour créer les catégories.
+     *
+     * @param Category[]|null $categories
+     */
+    public function createCategories(?Category $parent = null, ?array $categories = null): void
     {
         // Si aucun tableau de catégories n'est passé, on utilise le tableau de base
         $categories = $categories ?? $this->getCategories();
@@ -63,41 +67,41 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
-     * @return array
+     * @return mixed []
      */
-    private function getCategories() : array 
+    private function getCategories(): array
     {
         return [
-            'Transport'=>[
+            'Transport' => [
                 'automobile' => [],
                 'moto' => [],
                 'water carriage' => [],
                 'trucks and special equipment' => [],
-                'parts and accessories' => []
+                'parts and accessories' => [],
             ],
-            'Real estate'=>[],
-            'Electronics'=>[],
-            'Jobs'=>[],
-            'Services'=>[],
-            'Personal articles'=>[
+            'Real estate' => [],
+            'Electronics' => [],
+            'Jobs' => [],
+            'Services' => [],
+            'Personal articles' => [
                 'clothes, shoes, accessories' => [],
                 'beauty and health' => [],
                 'watches and jewelry' => [],
                 'children\'s clothing and footwear' => [],
                 'children\'s goods and toys' => [],
             ],
-            'For home and garden'=>[],
-            'Hobbies and recreation'=>[],
-            'Animals'=>[
-                'cat'=>[],
-                'dog'=>[],
-                'horse'=>[],
-                'lion'=>[],
-                'other=>[]'
+            'For home and garden' => [],
+            'Hobbies and recreation' => [],
+            'Animals' => [
+                'cat' => [],
+                'dog' => [],
+                'horse' => [],
+                'lion' => [],
+                'other' => [],
             ],
-            'Business and equipments'=>[]
+            'Business and equipments' => [],
         ];
     }
 }

@@ -58,6 +58,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\Column]
+    private bool $isContactBySms = false;
+
+    #[ORM\Column]
+    private bool $isContactByWhatsapp = false;
+
     /**
      * @var Collection<int, Favorite>
      */
@@ -235,6 +241,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $favorite->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isContactBySms(): ?bool
+    {
+        return $this->isContactBySms;
+    }
+
+    public function setContactBySms(bool $isContactBySms): static
+    {
+        $this->isContactBySms = $isContactBySms;
+
+        return $this;
+    }
+
+    public function isContactByWhatsapp(): ?bool
+    {
+        return $this->isContactByWhatsapp;
+    }
+
+    public function setContactByWhatsapp(bool $isContactByWhatsapp): static
+    {
+        $this->isContactByWhatsapp = $isContactByWhatsapp;
 
         return $this;
     }
