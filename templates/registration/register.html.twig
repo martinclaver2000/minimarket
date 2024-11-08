@@ -3,22 +3,32 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<div class="form-container">
+    <div class="text-center my-3">
+        <img src="https://via.placeholder.com/50" class="img-fluid" alt="...">
+    </div>
+    <h1 class="h3 mb-2 font-weight-normal text-center">Register</h1>
+
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-
-    <h1>Register</h1>
-
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.phoneNumber) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-lg btn-primary form-control mb-2">Register</button>
+        <a href="{{ path('app_login') }}" class="d-flex justify-content-center text-decoration-none mb-2">
+            <small>I have an account!</small>
+        </a>
+        <a href="{{ path('app_forgot_password_request') }}" class="d-flex justify-content-center text-decoration-none">
+            <small>Forgot your password? Click here!</small>
+        </a>
     {{ form_end(registrationForm) }}
+</div>
 {% endblock %}
