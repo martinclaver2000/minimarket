@@ -3,5 +3,10 @@
 .gold{
     color: $yellow-500;
 }
+
+.form-container {
+    max-width: 300px;
+    margin:auto;
+}
 @import '~@fortawesome/fontawesome-free/css/all.css';
 @import "~bootstrap/scss/bootstrap";

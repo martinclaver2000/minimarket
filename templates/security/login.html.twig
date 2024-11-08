@@ -3,29 +3,35 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+<div class="form-container">
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <div class="text-center my-5">
+            <img src="https://via.placeholder.com/50" class="img-fluid" alt="...">
         </div>
-    {% endif %}
+        <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+        <div class="mb-3">        
+            <label class="form-label" for="email">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" autocomplete="email" required autofocus>
+        </div>
+        <div class="mb-3">        
+            <label class="form-label"  for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" autocomplete="current-password" required>
+        </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+        <button class="btn btn-lg btn-primary form-control mb-3" type="submit">
+            Sign in
+        </button>
+        <a href="{{ path('app_register') }}" class="d-flex justify-content-center text-decoration-none mb-2">
+            <small>You don't have an account? Click here!</small>
+        </a>
+        <a href="{{ path('app_forgot_password_request') }}" class="d-flex justify-content-center text-decoration-none">
+            <small>Forgot your password? Click here!</small>
+        </a>
+    </form>
+</div>
 {% endblock %}
