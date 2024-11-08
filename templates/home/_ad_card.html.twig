@@ -7,7 +7,7 @@
                 <div>
                     <i 
                         class="fa-heart text-danger {% if hasFavorite(ad) %}fa-solid{% else %}fa-regular{% endif %} favorite-toggle"
-                        data-slug="{{ ad.slug }}"
+                        data-url ="{{ path('app_favorite_toggle',{slug:ad.slug}) }}"
                         style="cursor: pointer;"
                     >
                     </i>

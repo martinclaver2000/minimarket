@@ -54,18 +54,18 @@
                             <h1>{{ ad.price }}</h1>
                             <i 
                                 class="{% if hasFavorite(ad) %}fa-solid{% else %}fa-regular{% endif %} fa-heart fa-2x text-danger favorite-toggle"
-                                data-slug ="{{ ad.slug }}"
+                                data-url ="{{ path('app_favorite_toggle',{slug:ad.slug}) }}"
                                 style="cursor: pointer;"
                             >
                             </i>
                         </div>
-                        <div class="row">                        
-                            <a href="#" id="show-phone-number" class="btn btn-primary btn-lg form-control m-2 rounded-pill">Show phone number</a>
+                        <div class="row">               
+                            <a href="#" id="show-phone-number" data-phone-number="{{ad.account.owner.phoneNumber}}" data-url="{{ path('app_phone_number_contact_count', {slug:ad.slug}) }}" class="btn btn-primary btn-lg form-control m-2 rounded-pill">Show phone number</a>
                             {% if ad.account.owner.isContactBySms %}
-                                <a href="#" id="contact-by-sms" class="btn btn-primary btn-lg form-control m-2 rounded-pill">Contact by sms</a>
+                                <a href="#" id="contact-by-sms" data-url="{{ path('app_message_contact_count', {slug:ad.slug}) }}" class="btn btn-primary btn-lg form-control m-2 rounded-pill">Contact by sms</a>
                             {% endif %} 
                             {% if ad.account.owner.isContactByWhatsapp %}
-                                <a href="#" id="contact-by-whatsapp" class="btn btn-primary btn-lg form-control m-2 rounded-pill">Contact by Whatsapp</a>
+                                <a href="#" id="contact-by-whatsapp" data-url="{{ path('app_whatsapp_contact_count', {slug:ad.slug}) }}" class="btn btn-primary btn-lg form-control m-2 rounded-pill">Contact by Whatsapp</a>
                             {% endif %} 
                         </div>
                         <div class="d-flex justify-content-between mt-4">
@@ -103,4 +103,109 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const favoriteIcons = document.querySelectorAll('i.favorite-toggle');
+        const phoneNumber = document.getElementById('show-phone-number');
+        const contactBySms = document.getElementById('contact-by-sms'); 
+        const contactByWhatsapp = document.getElementById('contact-by-whatsapp');
+
+        phoneNumber.addEventListener('click', function(){
+            number = this.getAttribute('data-phone-number');
+            url = this.getAttribute('data-url');
+            this.textContent = number;
+                            
+            // Envoie de la requête AJAX
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('done!');
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
+        });
+
+        if (contactBySms !== null) {
+            contactBySms.addEventListener('click', function(){
+                url = this.getAttribute('data-url');                                
+                // Envoie de la requête AJAX
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('sms done!');
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+            });
+        }
+
+        if (contactByWhatsapp !== null) {
+            contactByWhatsapp.addEventListener('click', function(){
+                url = this.getAttribute('data-url');                                
+                // Envoie de la requête AJAX
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('whatsapp done!');
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+            });
+        }
+        
+        favoriteIcons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                const url = icon.getAttribute('data-url');
+                
+                // Envoie de la requête AJAX
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isFavorite) {
+                        // Marquer comme favori (ajouter la classe fa-solid)
+                        icon.classList.remove('fa-regular');
+                        icon.classList.add('fa-solid');
+                    } else {
+                        // Enlever des favoris (remettre la classe fa-regular)
+                        icon.classList.remove('fa-solid');
+                        icon.classList.add('fa-regular');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}

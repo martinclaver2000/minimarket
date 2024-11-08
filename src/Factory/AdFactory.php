@@ -51,6 +51,7 @@ final class AdFactory extends PersistentProxyObjectFactory
             'title' => $this->generateTitleForCategory($category),
             'viewsCount' => self::faker()->randomNumber(2, false),
             'whatsappContactCount' => self::faker()->randomNumber(2, false),
+            'phoneNumberContactCount' => self::faker()->randomNumber(2, false),
             'category' => $category,
         ];
     }

@@ -3,23 +3,24 @@
 namespace App\Entity;
 
 use App\Enum\AdStatusEnum;
-use App\Repository\AdRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Trait\CreatedAtTrait;
 use Doctrine\DBAL\Types\Types;
+use App\Repository\AdRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AdRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Ad
 {
+    use CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
@@ -47,6 +48,9 @@ class Ad
 
     #[ORM\Column]
     private int $messageContactCount = 0;
+
+    #[ORM\Column]
+    private int $phoneNumberContactCount = 0;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
@@ -92,24 +96,11 @@ class Ad
     {
         $this->images = new ArrayCollection();
         $this->favorites = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getPublishedAt(): ?\DateTimeImmutable
@@ -381,6 +372,25 @@ class Ad
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPhoneNumberContactCount(): ?int
+    {
+        return $this->phoneNumberContactCount;
+    }
+
+    public function setPhoneNumberContactCount(int $phoneNumberContactCount): static
+    {
+        $this->phoneNumberContactCount = $phoneNumberContactCount;
+
+        return $this;
+    }
+
+    public function incrementPhoneNumberContactCount(): self
+    {
+        ++$this->phoneNumberContactCount;
 
         return $this;
     }

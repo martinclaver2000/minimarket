@@ -43,6 +43,7 @@ final class UserFactory extends PersistentProxyObjectFactory
             'lastName' => self::faker()->lastName(),
             'password' => 'password',
             'roles' => self::faker()->randomElement(self::USER_ROLES),
+            'phoneNumber' => self::faker()->numerify('07########'),
             'username' => self::faker()->userName(),
             'verified' => self::faker()->randomElement([true, false]),
             'contactBySms' => self::faker()->randomElement([true, false]),

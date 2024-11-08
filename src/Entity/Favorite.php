@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\FavoriteRepository;
+use App\Trait\CreatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FavoriteRepository;
 
 #[ORM\Entity(repositoryClass: FavoriteRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Favorite
 {
+    use CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -17,17 +21,9 @@ class Favorite
     #[ORM\JoinColumn(nullable: false)]
     private ?Ad $ad = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
     #[ORM\ManyToOne(inversedBy: 'favorites')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTimeImmutable('now');
-    }
 
     public function getId(): ?int
     {
@@ -42,18 +38,6 @@ class Favorite
     public function setAd(?Ad $ad): static
     {
         $this->ad = $ad;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }

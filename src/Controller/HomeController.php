@@ -23,7 +23,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/ads/{slug}', name: 'app_ad', methods: ['GET'])]
+    #[Route('/ads/{slug}', name: 'app_ad', methods: ['GET','POST'])]
     public function show(
         Ad $ad,
         EntityManagerInterface $entityManager,
@@ -42,5 +42,32 @@ class HomeController extends AbstractController
             'similarAds' => $similarAds,
             'categoriesHierachy' => $categoryService->getCategoryHierarchy($ad->getCategory()),
         ]);
+    }
+
+    #[Route('/whatsapp_contact_count/{slug}', name: 'app_whatsapp_contact_count', methods: ['POST'])]
+    public function whatsappContactCount(Ad $ad, EntityManagerInterface $em): Response
+    {
+        $ad->incrementWhatsappContactCount();
+        $em->flush();
+
+        return $this->json(['message' => 'done!']);
+    }
+
+    #[Route('/message_contact_count/{slug}', name: 'app_message_contact_count', methods: ['POST'])]
+    public function messageContactCount(Ad $ad, EntityManagerInterface $em): Response
+    {
+        $ad->incrementMessageContactCount();
+        $em->flush();
+
+        return $this->json(['message' => 'done!']);
+    }
+
+    #[Route('/phone_number_contact_count/{slug}', name: 'app_phone_number_contact_count', methods: ['POST'])]
+    public function phoneNumberContactCount(Ad $ad, EntityManagerInterface $em): Response
+    {
+        $ad->incrementPhoneNumberContactCount();
+        $em->flush();
+
+        return $this->json(['message' => 'done!']);
     }
 }

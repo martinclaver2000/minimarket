@@ -7,15 +7,16 @@
         <div class="col-8 px-0">
             <h6>
                 <a href="{{ path('app_ad', {slug:ad.slug}) }}" class="text-decoration-none">
-                    {{ad.title|u.truncate(30,'...')}}
+                    {{ad.title|u.truncate(25,'...')}}
                 </a>
             </h6>
             <div>{{ad.price}}</div> 
             <div>
                 <i class="fa-regular fa-eye"></i>{{ad.viewsCount}}
-                <i class="fa-solid fa-heart text-danger"></i>{{ad.favorites|length}}
-                <i class="fa-solid fa-phone"></i>{{ad.messageContactCount}}
+                <i class="fa-solid fa-phone"></i>{{ad.phoneNumberContactCount}}
+                <i class="fa-regular fa-comment text-primary"></i>{{ad.messageContactCount}}
                 <i class="fa-brands fa-whatsapp text-success"></i>{{ad.whatsappContactCount}}
+                <i class="fa-solid fa-heart text-danger"></i>{{ad.favorites|length}}
             </div>
         </div>
     </div>

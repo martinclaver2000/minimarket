@@ -12,7 +12,7 @@
                     </a>
                     <i 
                         class="me-2 fa-heart text-danger {% if hasFavorite(favorite.ad) %}fa-solid{% else %}fa-regular{% endif %} favorite-toggle"
-                        data-slug="{{ favorite.ad.slug }}"
+                        data-url ="{{ path('app_favorite_toggle',{slug:favorite.ad.slug}) }}"
                         style="cursor: pointer;"
                     >
                     </i>

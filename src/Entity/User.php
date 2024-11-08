@@ -64,6 +64,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isContactByWhatsapp = false;
 
+    #[ORM\Column(length: 255)]
+    private ?string $phoneNumber = null;
+
     /**
      * @var Collection<int, Favorite>
      */
@@ -265,6 +268,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setContactByWhatsapp(bool $isContactByWhatsapp): static
     {
         $this->isContactByWhatsapp = $isContactByWhatsapp;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): static
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
