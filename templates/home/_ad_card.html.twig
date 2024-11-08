@@ -4,7 +4,14 @@
         <h6 class="px-1">
             <div class="d-flex justify-content-between">
                 <a href="{{ path('app_ad', {slug:ad.slug}) }}" class="text-decoration-none">{{ ad.title }}</a>
-                <div><i class="fa-regular fa-heart text-danger"></i></div>
+                <div>
+                    <i 
+                        class="fa-heart text-danger {% if hasFavorite(ad) %}fa-solid{% else %}fa-regular{% endif %} favorite-toggle"
+                        data-slug="{{ ad.slug }}"
+                        style="cursor: pointer;"
+                    >
+                    </i>
+                </div>
             </div>
         </h6>
         <div class="px-1">${{ad.price}}</div>

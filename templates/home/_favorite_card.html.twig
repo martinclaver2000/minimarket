@@ -6,9 +6,17 @@
         </div>
         <div class="col-8 px-0">
             <h6>
-                <a href="{{ path('app_ad', {slug:favorite.ad.slug}) }}" class="text-decoration-none">
-                    {{favorite.ad.title|u.truncate(30,'...')}}
-                </a>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path('app_ad', {slug:favorite.ad.slug}) }}" class="text-decoration-none">
+                        {{favorite.ad.title|u.truncate(26,'...')}}
+                    </a>
+                    <i 
+                        class="me-2 fa-heart text-danger {% if hasFavorite(favorite.ad) %}fa-solid{% else %}fa-regular{% endif %} favorite-toggle"
+                        data-slug="{{ favorite.ad.slug }}"
+                        style="cursor: pointer;"
+                    >
+                    </i>
+                </div>
             </h6>
             <div>{{favorite.ad.price}}</div>
         </div>

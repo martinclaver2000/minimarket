@@ -52,7 +52,12 @@
                     <div class="position-sticky" style="top: 20px;">
                         <div class="d-flex justify-content-between align-items-center">
                             <h1>{{ ad.price }}</h1>
-                            <i class="fa-regular fa-heart fa-2x"></i>
+                            <i 
+                                class="{% if hasFavorite(ad) %}fa-solid{% else %}fa-regular{% endif %} fa-heart fa-2x text-danger favorite-toggle"
+                                data-slug ="{{ ad.slug }}"
+                                style="cursor: pointer;"
+                            >
+                            </i>
                         </div>
                         <div class="row">                        
                             <a href="#" id="show-phone-number" class="btn btn-primary btn-lg form-control m-2 rounded-pill">Show phone number</a>

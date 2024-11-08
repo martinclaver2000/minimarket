@@ -22,7 +22,7 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            // new TwigFunction('categories', [AppExtensionRuntime::class, 'categories']),
+            new TwigFunction('hasFavorite', [AppExtensionRuntime::class, 'hasFavorite']),
         ];
     }
 }
