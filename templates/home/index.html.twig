@@ -40,8 +40,12 @@
 {% block javascripts %}
 {{ parent() }}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-
+    document.addEventListener('DOMContentLoaded', function() {        
+        {% for message in app.flashes('success') %}
+            {% if message is not empty %}
+                swal("{{messaage}}", "You clicked the button!", "success");
+            {% endif %}
+        {% endfor %}swal("ok", {icon: "success",});
         const favoriteIcons = document.querySelectorAll('i.favorite-toggle');
         
         favoriteIcons.forEach(icon => {

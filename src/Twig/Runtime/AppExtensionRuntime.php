@@ -17,7 +17,7 @@ class AppExtensionRuntime implements RuntimeExtensionInterface
     public function formatNameWithInitials(User $user): string
     {
         $initials = '';
-        $parts = explode(' ', $user->getLastName());
+        $parts = explode(' ', $user->getFirstName());
 
         foreach ($parts as $name) {
             $initials .= strtoupper($name[0]).'.';
