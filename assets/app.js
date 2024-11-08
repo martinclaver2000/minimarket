@@ -10,6 +10,8 @@
  */
 import './styles/app.scss';
 
+import swal from 'sweetalert';
+
 import { Tooltip, Toast, Popover } from 'bootstrap'; 
 
 import './bootstrap.js';
