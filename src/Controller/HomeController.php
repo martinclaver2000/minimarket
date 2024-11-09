@@ -23,7 +23,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/ads/{slug}', name: 'app_ad', methods: ['GET','POST'])]
+    #[Route('/ads/{slug}', name: 'app_ad', methods: ['GET', 'POST'])]
     public function show(
         Ad $ad,
         EntityManagerInterface $entityManager,

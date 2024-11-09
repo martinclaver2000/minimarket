@@ -39,6 +39,27 @@ class FavoriteRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Favorite[] Returns an array of Favorite objects
+     */
+    public function findAllByUser(): array
+    {
+        // Récupère l'utilisateur actuellement connecté
+        $user = $this->security->getUser();
+
+        // Vérifie si l'utilisateur est authentifié
+        if (!$user) {
+            return []; // ou gérez cette situation en fonction de vos besoins
+        }
+
+        return $this->createQueryBuilder('f')
+            ->where('f.owner = :owner')
+            ->setParameter('owner', $user)
+            ->orderBy('f.createdAt', 'DESC') // Assurez-vous d'avoir un champ `createdAt` dans `Favorite`
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Favorite[] Returns an array of Favorite objects
     //     */

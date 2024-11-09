@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Repository\FavoriteRepository;
 use App\Trait\CreatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\FavoriteRepository;
 
 #[ORM\Entity(repositoryClass: FavoriteRepository::class)]
 #[ORM\HasLifecycleCallbacks]

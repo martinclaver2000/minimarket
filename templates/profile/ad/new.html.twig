@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ad{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h1 class="h3 mb-3 font-weight-normal text-center mt-2">Create new ad</h1>    
+    {{ include('profile/ad/_form.html.twig') }}
+</div>
+{% endblock %}

@@ -45,13 +45,13 @@
                         </div>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{path('app_profile_ad_index')}}">
                                     <i class="fa-solid fa-layer-group"></i>
                                     Ads
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{path('app_profile_favorite_index')}}">
                                     <i class="fa-solid fa-heart"></i>
                                     Favorites
                                 </a>
@@ -60,7 +60,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{path('app_profile_setting_index')}}">
                                     <i class="fa-solid fa-gear"></i>
                                     Settings
                                 </a>
@@ -76,7 +76,7 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="#" class="btn btn-primary rounded-pill">Publish an ad</a>
+                    <a href="{{ path('app_profile_ad_new') }}" class="btn btn-primary rounded-pill">Publish an ad</a>
                 {% else %}
                     <a href="{{ path('app_login') }}" class="btn btn-primary rounded-pill">Publish an ad</a>
                 {% endif %}                

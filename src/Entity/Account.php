@@ -2,18 +2,18 @@
 
 namespace App\Entity;
 
-use App\Trait\CreatedAtTrait;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AccountRepository;
-use Doctrine\Common\Collections\Collection;
+use App\Trait\CreatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Account
 {
     use CreatedAtTrait;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

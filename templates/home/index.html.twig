@@ -21,7 +21,7 @@
                     {% for ad in myAds %}
                         {% include "home/_my_ad_card.html.twig" %}
                     {% endfor %}
-                <a href="#" class="btn btn-secondary form-control">All my ads</a>
+                <a href="{{ path('app_profile_ad_index') }}" class="btn btn-secondary form-control">All my ads</a>
                 </div>
             {% endif %}
             {% if favorites|length > 0 %}        
@@ -30,7 +30,7 @@
                     {% for favorite in favorites %}
                         {% include "home/_favorite_card.html.twig" %}
                     {% endfor %}
-                <a href="#" class="btn btn-secondary form-control">All my favorites</a>
+                <a href="{{ path('app_profile_favorite_index') }}" class="btn btn-secondary form-control">All my favorites</a>
                 </div>
             {% endif %}        
         </div>
@@ -38,45 +38,45 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {        
-        {% for message in app.flashes('success') %}
-            {% if message is not empty %}
-                swal("{{messaage}}", "You clicked the button!", "success");
-            {% endif %}
-        {% endfor %}swal("ok", {icon: "success",});
-        const favoriteIcons = document.querySelectorAll('i.favorite-toggle');
-        
-        favoriteIcons.forEach(icon => {
-            icon.addEventListener('click', function() {
-                const url = icon.getAttribute('data-url');
-                
-                // Envoie de la requête AJAX
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.isFavorite) {
-                        // Marquer comme favori (ajouter la classe fa-solid)
-                        icon.classList.remove('fa-regular');
-                        icon.classList.add('fa-solid');
-                    } else {
-                        // Enlever des favoris (remettre la classe fa-regular)
-                        icon.classList.remove('fa-solid');
-                        icon.classList.add('fa-regular');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {        
+            {% for message in app.flashes('success') %}
+                {% if message is not empty %}
+                    swal("{{message}}", {icon: "success",});
+                {% endif %}
+            {% endfor %}
+            const favoriteIcons = document.querySelectorAll('i.favorite-toggle');
+            
+            favoriteIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const url = icon.getAttribute('data-url');
+                    
+                    // Envoie de la requête AJAX
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.isFavorite) {
+                            // Marquer comme favori (ajouter la classe fa-solid)
+                            icon.classList.remove('fa-regular');
+                            icon.classList.add('fa-solid');
+                        } else {
+                            // Enlever des favoris (remettre la classe fa-regular)
+                            icon.classList.remove('fa-solid');
+                            icon.classList.add('fa-regular');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
 {% endblock %}

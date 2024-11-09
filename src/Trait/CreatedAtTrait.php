@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Trait;
 
 use Doctrine\ORM\Mapping as ORM;
 
 trait CreatedAtTrait
 {
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -24,6 +24,6 @@ trait CreatedAtTrait
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
-        $this->createdAt =new \DateTimeImmutable('now', new \DateTimeZone('GMT'));
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('GMT'));
     }
 }

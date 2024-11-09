@@ -41,6 +41,29 @@ class AdRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Ad[] Returns an array of Ad objects
+     */
+    public function findAllByUser(): array
+    {
+        // Récupère l'utilisateur actuellement connecté
+        $user = $this->security->getUser();
+
+        // Vérifie si l'utilisateur est authentifié
+        if (!$user) {
+            return []; // ou gérez cette situation en fonction de vos besoins
+        }
+
+        return $this->createQueryBuilder('ad')
+            ->join('ad.account', 'account')
+            ->where('account.owner = :user')
+            ->setParameter('user', $user)
+            ->orderBy('ad.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Ad[] Returns an array of Ad objects
     //     */
