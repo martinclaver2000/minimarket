@@ -3,19 +3,19 @@
 namespace App\Entity;
 
 use App\Enum\AdStatusEnum;
-use App\Repository\AdRepository;
-use App\Trait\CreatedAtTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use App\Repository\AdRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation\Slug;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AdRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 class Ad
 {
-    use CreatedAtTrait;
+    use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -89,7 +89,8 @@ class Ad
     #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'ad')]
     private Collection $favorites;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 )]
+    #[Slug(fields:['title'],separator:'_')]
     private ?string $slug = null;
 
     public function __construct()
@@ -242,7 +243,7 @@ class Ad
 
     public function incrementViewsCount(): self
     {
-        ++$this->viewsCount;
+        $this->viewsCount++;
 
         return $this;
     }
@@ -261,7 +262,7 @@ class Ad
 
     public function incrementWhatsappContactCount(): self
     {
-        ++$this->whatsappContactCount;
+        $this->whatsappContactCount++;
 
         return $this;
     }
@@ -280,7 +281,7 @@ class Ad
 
     public function incrementMessageContactCount(): self
     {
-        ++$this->messageContactCount;
+        $this->messageContactCount++;
 
         return $this;
     }

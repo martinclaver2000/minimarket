@@ -40,11 +40,6 @@ final class CategoryFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this
-            ->afterInstantiate(function (Category $category): void {
-                $slug = strtolower($this->slugger->slug($category->getName().' '.uniqid(), '_'));
-                $category->setSlug($slug);
-            })
-        ;
+        return $this;
     }
 }

@@ -8,12 +8,10 @@ use DateTimeImmutable;
 use App\Enum\AdStatusEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdService
 {
     public function __construct(
-        private SluggerInterface $slugger,
         private EntityManagerInterface $manager,
         private Security $security
     ) {
@@ -32,8 +30,6 @@ class AdService
         $user = $userRepository->findOneBy(['email' => $user->getUserIdentifier()]);
         $ad
             ->setAdStatus(AdStatusEnum::CREATED)
-            ->setCreatedAt($this->getDatetimeImmutableGMT())
-            ->setSlug($this->generateSlug($ad))
             ->setAccount($user->getAccount())
         ;
         $this->manager->persist($ad);
@@ -124,19 +120,6 @@ class AdService
         $this->manager->flush();
 
         return $ad;
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param Ad $ad
-     * @return string
-     */
-    private function generateSlug(Ad $ad): string
-    {
-        $slug = strtolower($ad->getCategory()->getName().' '.$ad->getTitle().' '.uniqid());
-
-        return $this->slugger->slug($slug, '_');
     }
 
     /**

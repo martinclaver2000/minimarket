@@ -3,16 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\AccountRepository;
-use App\Trait\CreatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 class Account
 {
-    use CreatedAtTrait;
+    use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

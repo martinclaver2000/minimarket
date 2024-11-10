@@ -61,11 +61,7 @@ final class AdFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this
-            ->afterInstantiate(function (Ad $ad): void {
-                $slug = strtolower($ad->getCategory()->getName().' '.$ad->getTitle().' '.uniqid());
-                $ad->setSlug($this->slugger->slug($slug, '_'));
-            });
+        return $this;
     }
 
     /**
