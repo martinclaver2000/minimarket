@@ -1,9 +1,16 @@
 <div>
-    <a href="{{ path('app_ad', {slug:ad.slug}) }}"><img src="https://via.placeholder.com/400x300" class="card-img-top" alt="..."></a>
+    {% if ad.images|length > 0 %}
+        {% set image = ad.images|first %}
+        <a href="{{ path('app_ad', {slug:ad.slug}) }}"><img src="{{asset('build/dev/' ~ image.fileName) | imagine_filter('ad_thumb')}}" class="card-img-top" alt="..."></a>
+    {% else %}
+        <a href="{{ path('app_ad', {slug:ad.slug}) }}"><img src="https://via.placeholder.com/400x300" class="card-img-top" alt="..."></a>
+    {% endif %}    
     <div>
         <h6 class="px-1">
             <div class="d-flex justify-content-between">
-                <a href="{{ path('app_ad', {slug:ad.slug}) }}" class="text-decoration-none">{{ ad.title }}</a>
+                <a href="{{ path('app_ad', {slug:ad.slug}) }}" class="text-decoration-none">
+                    <b>{{ ad.title }}</b>
+                </a>
                 <div>
                     <i 
                         class="fa-heart text-danger {% if hasFavorite(ad) %}fa-solid{% else %}fa-regular{% endif %} favorite-toggle"
@@ -14,7 +21,7 @@
                 </div>
             </div>
         </h6>
-        <div class="px-1">${{ad.price}}</div>
+        <div class="px-1"><b>${{ad.price | number_format(0, '.', ' ')}}</b></div>
         <div class="px-1 text-muted small"><em>{{ad.address}}</em></div>
     </div>
 </div>

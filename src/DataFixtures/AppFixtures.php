@@ -7,7 +7,6 @@ use App\Factory\AccountFactory;
 use App\Factory\AdFactory;
 use App\Factory\CategoryFactory;
 use App\Factory\FavoriteFactory;
-use App\Factory\ImageFactory;
 use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -30,10 +29,6 @@ class AppFixtures extends Fixture
             ];
         });
 
-        ImageFactory::createMany(100, function () {
-            return ['ad' => AdFactory::random()];
-        });
-
         FavoriteFactory::createMany(100, function () {
             return [
                 'ad' => AdFactory::random(),
@@ -45,7 +40,8 @@ class AppFixtures extends Fixture
     /**
      * Fonction récursive pour créer les catégories.
      *
-     * @param Category[]|null $categories
+     * @param Category|null $parent La catégorie parente.
+     * @param Category[]|null $categories Les catégories à créer.
      */
     public function createCategories(?Category $parent = null, ?array $categories = null): void
     {
@@ -74,34 +70,47 @@ class AppFixtures extends Fixture
     private function getCategories(): array
     {
         return [
-            'Transport' => [
+            'transport' => [
                 'automobile' => [],
                 'moto' => [],
                 'water carriage' => [],
                 'trucks and special equipment' => [],
                 'parts and accessories' => [],
             ],
-            'Real estate' => [],
-            'Electronics' => [],
-            'Jobs' => [],
-            'Services' => [],
-            'Personal articles' => [
-                'clothes, shoes, accessories' => [],
+            'real estate' => [
+                'buy a house' => [],
+                'rent long term' => [],
+                'trips' => [],
+                'commercial real estate' => [],
+            ],
+            'electronics' => [
+                'phone' => [],
+                'notebook' => [],
+                'audio and video' => [],
+                'computer' => [],
+            ],
+            // 'services' => [],
+            'personal articles' => [
+                'clothes, shoes, accessories' => [
+                    'clothes' => [],
+                    'shoes' => [],
+                    'accessories' => [],
+                ],
                 'beauty and health' => [],
-                'watches and jewelry' => [],
+                'watches and jewelry' => [
+                    'watches' => [],
+                    'jewelry' => [],
+                ],
                 'children\'s clothing and footwear' => [],
                 'children\'s goods and toys' => [],
             ],
-            'For home and garden' => [],
-            'Hobbies and recreation' => [],
-            'Animals' => [
+            // 'for home and garden' => [],
+            'hobbies and recreation' => [],
+            'animals' => [
                 'cat' => [],
                 'dog' => [],
-                'horse' => [],
-                'lion' => [],
-                'other' => [],
             ],
-            'Business and equipments' => [],
+            // 'business and equipments' => [],
         ];
     }
 }

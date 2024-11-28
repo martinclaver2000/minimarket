@@ -3,7 +3,6 @@
 namespace App\Factory;
 
 use App\Entity\Category;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -16,7 +15,7 @@ final class CategoryFactory extends PersistentProxyObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct(private SluggerInterface $slugger)
+    public function __construct()
     {
     }
 

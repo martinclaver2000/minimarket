@@ -7,6 +7,7 @@ use App\Repository\AdRepository;
 use App\Repository\FavoriteRepository;
 use App\Service\CategoryService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,7 +26,7 @@ class HomeController extends AbstractController
 
     #[Route('/ads/{slug}', name: 'app_ad', methods: ['GET', 'POST'])]
     public function show(
-        Ad $ad,
+        #[MapEntity(mapping: ['slug' => 'slug'])] Ad $ad,
         EntityManagerInterface $entityManager,
         CategoryService $categoryService,
     ): Response {
@@ -45,8 +46,10 @@ class HomeController extends AbstractController
     }
 
     #[Route('/whatsapp_contact_count/{slug}', name: 'app_whatsapp_contact_count', methods: ['POST'])]
-    public function whatsappContactCount(Ad $ad, EntityManagerInterface $em): Response
-    {
+    public function whatsappContactCount(
+        #[MapEntity(mapping: ['slug' => 'slug'])] Ad $ad,
+        EntityManagerInterface $em,
+    ): Response {
         $ad->incrementWhatsappContactCount();
         $em->flush();
 
@@ -54,8 +57,10 @@ class HomeController extends AbstractController
     }
 
     #[Route('/message_contact_count/{slug}', name: 'app_message_contact_count', methods: ['POST'])]
-    public function messageContactCount(Ad $ad, EntityManagerInterface $em): Response
-    {
+    public function messageContactCount(
+        #[MapEntity(mapping: ['slug' => 'slug'])] Ad $ad,
+        EntityManagerInterface $em,
+    ): Response {
         $ad->incrementMessageContactCount();
         $em->flush();
 
@@ -63,8 +68,10 @@ class HomeController extends AbstractController
     }
 
     #[Route('/phone_number_contact_count/{slug}', name: 'app_phone_number_contact_count', methods: ['POST'])]
-    public function phoneNumberContactCount(Ad $ad, EntityManagerInterface $em): Response
-    {
+    public function phoneNumberContactCount(
+        #[MapEntity(mapping: ['slug' => 'slug'])] Ad $ad,
+        EntityManagerInterface $em,
+    ): Response {
         $ad->incrementPhoneNumberContactCount();
         $em->flush();
 

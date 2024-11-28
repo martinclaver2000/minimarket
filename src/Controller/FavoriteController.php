@@ -6,6 +6,7 @@ use App\Entity\Ad;
 use App\Entity\Favorite;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,8 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class FavoriteController extends AbstractController
 {
     #[Route('/favorite/toggle/{slug}', name: 'app_favorite_toggle', methods: ['POST'])]
-    public function toggleFavorite(Ad $ad, EntityManagerInterface $em): Response
-    {
+    public function toggleFavorite(
+        #[MapEntity(mapping: ['slug' => 'slug'])] Ad $ad,
+        EntityManagerInterface $em,
+    ): Response {
         $isFavorite = false;
 
         $connectedUser = $this->getUser();

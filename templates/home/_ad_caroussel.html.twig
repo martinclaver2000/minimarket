@@ -7,7 +7,7 @@
     <div class="carousel-inner">
         {% for image in ad.images %}
         <div class="carousel-item {% if loop.first %}active{% endif %}">
-            <img src="https://via.placeholder.com/400" class="d-block w-100" alt="Slide {{ loop.index }}">
+            <img src="{{asset('build/dev/' ~ image.fileName) | imagine_filter('ad_caroussel')}}" class="d-block w-100" alt="Slide {{ loop.index }}">
         </div>
         {% endfor %}
     </div>

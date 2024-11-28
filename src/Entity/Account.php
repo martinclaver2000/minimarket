@@ -3,18 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\AccountRepository;
+use App\Trait\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 class Account
 {
-    use TimestampableEntity;
+    use TimestampableTrait;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy:'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
 

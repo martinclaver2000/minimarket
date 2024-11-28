@@ -2,17 +2,17 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\FavoriteRepository;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use App\Trait\TimestampableTrait;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FavoriteRepository::class)]
 class Favorite
 {
-    use TimestampableEntity;
+    use TimestampableTrait;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy:'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
 

@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\Ad;
 use App\Entity\User;
-use DateTimeImmutable;
 use App\Enum\AdStatusEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -13,15 +12,12 @@ class AdService
 {
     public function __construct(
         private EntityManagerInterface $manager,
-        private Security $security
+        private Security $security,
     ) {
     }
 
     /**
-     * Undocumented function
-     *
-     * @param Ad $ad
-     * @return Ad
+     * Undocumented function.
      */
     public function createPersistAndFlush(Ad $ad): Ad
     {
@@ -34,14 +30,12 @@ class AdService
         ;
         $this->manager->persist($ad);
         $this->manager->flush();
+
         return $ad;
     }
 
     /**
-     * Undocumented function
-     *
-     * @param Ad $ad
-     * @return Ad
+     * Undocumented function.
      */
     public function publishAndFlush(Ad $ad): Ad
     {
@@ -55,10 +49,7 @@ class AdService
     }
 
     /**
-     * Undocumented function
-     *
-     * @param Ad $ad
-     * @return Ad
+     * Undocumented function.
      */
     public function soldAndFlush(Ad $ad): Ad
     {
@@ -72,10 +63,7 @@ class AdService
     }
 
     /**
-     * Undocumented function
-     *
-     * @param Ad $ad
-     * @return Ad
+     * Undocumented function.
      */
     public function expireAndFlush(Ad $ad): Ad
     {
@@ -89,10 +77,7 @@ class AdService
     }
 
     /**
-     * Undocumented function
-     *
-     * @param Ad $ad
-     * @return Ad
+     * Undocumented function.
      */
     public function denyAndFlush(Ad $ad): Ad
     {
@@ -106,10 +91,7 @@ class AdService
     }
 
     /**
-     * Undocumented function
-     *
-     * @param Ad $ad
-     * @return Ad
+     * Undocumented function.
      */
     public function deleteAndFlush(Ad $ad): Ad
     {
@@ -123,11 +105,9 @@ class AdService
     }
 
     /**
-     * Undocumented function
-     *
-     * @return DateTimeImmutable
+     * Undocumented function.
      */
-    private function getDatetimeImmutableGMT(): DateTimeImmutable
+    private function getDatetimeImmutableGMT(): \DateTimeImmutable
     {
         return new \DateTimeImmutable('now', new \DateTimeZone('GMT'));
     }

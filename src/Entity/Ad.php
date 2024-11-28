@@ -3,22 +3,22 @@
 namespace App\Entity;
 
 use App\Enum\AdStatusEnum;
-use Doctrine\DBAL\Types\Types;
 use App\Repository\AdRepository;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
+use App\Trait\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AdRepository::class)]
 class Ad
 {
-    use TimestampableEntity;
+    use TimestampableTrait;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy:'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -80,7 +80,7 @@ class Ad
     /**
      * @var Collection<int, Image>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'ad', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'ad', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $images;
 
     /**
@@ -89,8 +89,8 @@ class Ad
     #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'ad')]
     private Collection $favorites;
 
-    #[ORM\Column(length: 255 )]
-    #[Slug(fields:['title'],separator:'_')]
+    #[ORM\Column(length: 255)]
+    #[Slug(fields: ['title'], separator: '-')]
     private ?string $slug = null;
 
     public function __construct()
@@ -243,7 +243,7 @@ class Ad
 
     public function incrementViewsCount(): self
     {
-        $this->viewsCount++;
+        ++$this->viewsCount;
 
         return $this;
     }
@@ -262,7 +262,7 @@ class Ad
 
     public function incrementWhatsappContactCount(): self
     {
-        $this->whatsappContactCount++;
+        ++$this->whatsappContactCount;
 
         return $this;
     }
@@ -281,7 +281,7 @@ class Ad
 
     public function incrementMessageContactCount(): self
     {
-        $this->messageContactCount++;
+        ++$this->messageContactCount;
 
         return $this;
     }

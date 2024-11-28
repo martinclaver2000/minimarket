@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Ad;
 use App\Entity\Category;
+use App\Entity\Image;
 use App\Enum\AdStatusEnum;
 use App\Repository\CategoryRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -40,6 +41,7 @@ final class AdFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         $categories = $this->categoryRepository->findWithoutChildren();
+
         $category = self::faker()->randomElement($categories);
 
         return [
@@ -47,7 +49,7 @@ final class AdFactory extends PersistentProxyObjectFactory
             'address' => self::faker()->address(),
             'description' => self::faker()->text(),
             'messageContactCount' => self::faker()->randomNumber(2, false),
-            'price' => self::faker()->randomNumber(5, false),
+            'price' => self::faker()->numberBetween(500, 100000000),
             'title' => $this->generateTitleForCategory($category),
             'viewsCount' => self::faker()->randomNumber(2, false),
             'whatsappContactCount' => self::faker()->randomNumber(2, false),
@@ -61,7 +63,25 @@ final class AdFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this;
+        return $this
+            ->afterInstantiate(function (Ad $ad) {
+                try {
+                    $count = random_int(1, 3); // mettre 0 a la place de 1 si vous voulez des annonces sans photo
+                } catch (\Exception $e) {
+                    $count = 0; // Valeur par défaut en cas d'échec
+                }
+
+                if ($count > 0) {
+                    for ($i = 1; $i < $count; ++$i) {
+                        $image = new Image();
+                        $fileNameSubtr = substr($ad->getCategory()->getName(), 0, 50).' '.$i;
+                        $fileName = $this->slugger->slug(strtolower($fileNameSubtr)).'.png';
+                        $image->setFileName($fileName);
+                        $ad->addImage($image);
+                    }
+                }
+            })
+        ;
     }
 
     /**

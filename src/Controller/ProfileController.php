@@ -10,6 +10,7 @@ use App\Repository\AdRepository;
 use App\Repository\FavoriteRepository;
 use App\Service\AdService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class ProfileController extends AbstractController
     public function indexAd(AdRepository $adRepository): Response
     {
         return $this->render('profile/ad/index.html.twig', [
-            'ads' => $adRepository->findAllByUser()
+            'ads' => $adRepository->findAllByUser(),
         ]);
     }
 
@@ -55,8 +56,11 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/ads/edit/{slug}', name: 'ad_edit', methods: ['GET', 'POST'])]
-    public function editAd(Request $request, Ad $ad, EntityManagerInterface $entityManager): Response
-    {
+    public function editAd(
+        Request $request,
+        #[MapEntity(mapping: ['slug' => 'slug'])] Ad $ad,
+        EntityManagerInterface $entityManager,
+    ): Response {
         $form = $this->createForm(AdType::class, $ad);
         $form->handleRequest($request);
 
@@ -73,7 +77,10 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/ads/{slug}', name: 'ad_delete', methods: ['POST'])]
-    public function deleteAd(Request $request, Ad $ad, EntityManagerInterface $entityManager): Response
+    public function deleteAd(
+        Request $request,
+        #[MapEntity(mapping: ['slug' => 'slug'])] Ad $ad,
+        EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ad->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($ad);
@@ -88,12 +95,16 @@ class ProfileController extends AbstractController
     public function indexFavorite(FavoriteRepository $favoriteRepository): Response
     {
         return $this->render('profile/favorite/index.html.twig', [
-            'favorites' => $favoriteRepository->findAllByUser()
+            'favorites' => $favoriteRepository->findAllByUser(),
         ]);
     }
 
     #[Route('/favorites/{slug}', name: 'favorite_delete', methods: ['POST'])]
-    public function deleteFavorite(Request $request, Favorite $favorite, EntityManagerInterface $entityManager): Response
+    public function deleteFavorite(
+        Request $request,
+        #[MapEntity(mapping: ['slug' => 'slug'])] Favorite $favorite,
+        EntityManagerInterface $entityManager
+        ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$favorite->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($favorite);

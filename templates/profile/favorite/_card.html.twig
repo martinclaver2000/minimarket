@@ -2,12 +2,19 @@
 <div class="mb-1">
     <div class="row">
         <div class="col-3 px-0 pe-1">
-            <a href="{{ path('app_ad', {slug:favorite.ad.slug}) }}"><img src="https://via.placeholder.com/400x300" class="img-fluid rounded" alt="..."></a>
+            {% if favorite.ad.images|length > 0 %}
+                {% set image = favorite.ad.images|first %}
+                <a href="{{ path('app_ad', {slug:favorite.ad.slug}) }}"><img src="{{asset('build/dev/' ~ image.fileName) | imagine_filter('ad_thumb')}}" class="card-img-top" alt="..."></a>
+            {% else %}
+                <a href="{{ path('app_ad', {slug:favorite.ad.slug}) }}"><img src="https://via.placeholder.com/400x300" class="card-img-top" alt="..."></a>
+            {% endif %}
         </div>
         <div class="col-4 me-3">
             <h6 class="px-1">
                 <div class="d-flex justify-content-between">
-                    <a href="{{ path('app_ad', {slug:favorite.ad.slug}) }}" class="text-decoration-none">{{ favorite.ad.title }}</a>
+                    <a href="{{ path('app_ad', {slug:favorite.ad.slug}) }}" class="text-decoration-none">
+                        <b>{{ favorite.ad.title }}</b>
+                    </a>
                     <div>
                         <i 
                             class="fa-heart text-danger {% if hasFavorite(favorite.ad) %}fa-solid{% else %}fa-regular{% endif %} favorite-toggle"
@@ -18,17 +25,17 @@
                     </div>
                 </div>
             </h6>
-            <div class="px-1">${{favorite.ad.price}}</div>
+            <div class="px-1"><b>${{favorite.ad.price | number_format(0, '.', ' ')}}</b></div>
             <div class="px-1 text-muted small"><em>{{favorite.ad.address}}</em></div>
         </div>
         <div class="col-2 px-0">
             <div class="row">             
-                <a href="#" id="show-phone-number" data-phone-number="{{favorite.ad.account.owner.phoneNumber}}" data-url="{{ path('app_phone_number_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2">Show phone number</a>
+                <a href="#" id="phone-numbers-{{favorite.ad.id}}" data-phone-number="{{favorite.ad.account.owner.phoneNumber}}" data-url="{{ path('app_phone_number_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 phone-numbers">Show phone number</a>
                 {% if favorite.ad.account.owner.isContactBySms %}
-                    <a href="#" id="contact-by-sms" data-url="{{ path('app_message_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2">Contact by sms</a>
+                    <a href="#" id="contacts-by-sms-{{favorite.ad.id}}" data-url="{{ path('app_message_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 contacts-by-sms">Contact by sms</a>
                 {% endif %} 
                 {% if favorite.ad.account.owner.isContactByWhatsapp %}
-                    <a href="#" id="contact-by-whatsapp" data-url="{{ path('app_whatsapp_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2">Contact by Whatsapp</a>
+                    <a href="#" id="contacts-by-whatsapp-{{favorite.ad.id}}" data-url="{{ path('app_whatsapp_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 contacts-by-whatsapp">Contact by Whatsapp</a>
                 {% endif %} 
             </div>
         </div>
