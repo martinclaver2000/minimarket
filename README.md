@@ -19,7 +19,9 @@ The following commands allow in order: to install the dependencies of the minima
 
 ```bash
 composer install
+npm install
 docker compose up -d
+npm run build
 symfony console d:m:m -n
 symfony console d:f:l -n
 symfony serve -d
@@ -30,4 +32,6 @@ symfony open:local
 
 ```bash
 composer test
+composer fix
+composer phpstan
 ```

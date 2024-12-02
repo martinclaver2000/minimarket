@@ -30,12 +30,12 @@
         </div>
         <div class="col-2 px-0">
             <div class="row">             
-                <a href="#" id="phone-numbers-{{favorite.ad.id}}" data-phone-number="{{favorite.ad.account.owner.phoneNumber}}" data-url="{{ path('app_phone_number_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 phone-numbers">Show phone number</a>
+                <a href="#" {{ stimulus_action('favorite','display')}} id="phone-numbers-{{favorite.ad.id}}" data-phone-number="{{favorite.ad.account.owner.phoneNumber}}" data-url="{{ path('app_phone_number_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 phone-numbers">Show phone number</a>
                 {% if favorite.ad.account.owner.isContactBySms %}
-                    <a href="#" id="contacts-by-sms-{{favorite.ad.id}}" data-url="{{ path('app_message_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 contacts-by-sms">Contact by sms</a>
+                    <a href="#" {{ stimulus_action('favorite','sms')}} id="contacts-by-sms-{{favorite.ad.id}}" data-url="{{ path('app_message_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 contacts-by-sms">Contact by sms</a>
                 {% endif %} 
                 {% if favorite.ad.account.owner.isContactByWhatsapp %}
-                    <a href="#" id="contacts-by-whatsapp-{{favorite.ad.id}}" data-url="{{ path('app_whatsapp_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 contacts-by-whatsapp">Contact by Whatsapp</a>
+                    <a href="#" {{ stimulus_action('favorite','whatsapp')}} id="contacts-by-whatsapp-{{favorite.ad.id}}" data-url="{{ path('app_whatsapp_contact_count', {slug:favorite.ad.slug}) }}" class="btn btn-outline border form-control btn-sm mb-2 contacts-by-whatsapp">Contact by Whatsapp</a>
                 {% endif %} 
             </div>
         </div>

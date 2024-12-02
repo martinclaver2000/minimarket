@@ -1,4 +1,3 @@
-
 // You can specify which plugins you need
 
 
@@ -10,8 +9,11 @@
  */
 import './styles/app.scss';
 
+// You can specify which plugins you need
+import { Tooltip, Toast, Popover } from 'bootstrap';
+
 //import swal from 'sweetalert';
 
-import { Tooltip, Toast, Popover } from 'bootstrap'; 
+import './bootstrap';
 
-console.log(getNiceMessage(5));
+console.log('Hi! My name is app.js!');

@@ -29,47 +29,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    if (contactBySms !== null) {
-        contactBySms.addEventListener('click', function(){
-            url = this.getAttribute('data-url');                                
-            // Envoie de la requête AJAX
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('sms done!');
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
+    contactsBySms.forEach(contactBySms => {
+        if (contactBySms !== null) {
+            contactBySms.addEventListener('click', function(){
+                url = this.getAttribute('data-url');                                
+                // Envoie de la requête AJAX
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('sms done!');
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
             });
-        });
-    }
+        }
+    });
 
-    if (contactByWhatsapp !== null) {
-        contactByWhatsapp.addEventListener('click', function(){
-            url = this.getAttribute('data-url');                                
-            // Envoie de la requête AJAX
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('whatsapp done!');
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
+    contactsByWhatsapp.forEach(contactByWhatsapp => {
+        if (contactByWhatsapp !== null) {
+            contactByWhatsapp.addEventListener('click', function(){
+                url = this.getAttribute('data-url');                                
+                // Envoie de la requête AJAX
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest' // Pour indiquer que c'est une requête AJAX
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('whatsapp done!');
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
             });
-        });
-    }
+        }
+    });
     
     favoriteIcons.forEach(icon => {
         icon.addEventListener('click', function() {
