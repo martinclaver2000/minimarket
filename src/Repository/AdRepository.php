@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Ad;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -61,6 +62,13 @@ class AdRepository extends ServiceEntityRepository
             ->orderBy('ad.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function findAllByQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('ad')
+            ->orderBy('ad.createdAt', 'DESC')
         ;
     }
 

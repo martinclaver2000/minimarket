@@ -6,13 +6,19 @@
 <div class="container-fuild">
     <div class="row m-1">
         <div class="col-lg-9">
+            <turbo-frame id="ads-list-{{pager.currentPage}}">
             <div class="row">                
-                {% for ad in ads %}
-                <div class="col-6 col-md-4 col-lg-3 p-1">
+                {% for ad in pager %}
+                <div class="col-6 col-md-4 col-lg-3">
                     {% include "home/_ad_card.html.twig" %}
                 </div>
                 {% endfor %}
+                {% if pager.hasNextPage %}
+                    <turbo-frame id="ads-list-{{pager.nextPage}}" src="{{pagerfanta_page_url(pager, pager.nextPage)}}" loading="lazy">
+                    </turbo-frame>
+                {% endif %}
             </div>
+            </turbo-frame>
         </div>
         <div class="col-lg-3 d-none d-lg-block">
             {% if myAds|length > 0 %}        

@@ -3,22 +3,36 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use Pagerfanta\Pagerfanta;
 use App\Repository\AdRepository;
-use App\Repository\FavoriteRepository;
 use App\Service\CategoryService;
+use App\Repository\FavoriteRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home', methods: ['GET'])]
-    public function index(FavoriteRepository $favoriteRepository, AdRepository $adRepository): Response
+    public function index(
+        Request $request,
+        FavoriteRepository $favoriteRepository,
+        AdRepository $adRepository
+        ): Response
     {
+        $queryBuilder = $adRepository->findAllByQueryBuilder();
+        $adapter = new QueryAdapter($queryBuilder);
+        $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            $adapter,
+            $request->query->getInt('page', 1),
+            16
+        );
         return $this->render('home/index.html.twig', [
-            'ads' => $adRepository->findAll(),
+            'pager' => $pagerfanta,
             'myAds' => $adRepository->findLastThreeAdsByUser(),
             'favorites' => $favoriteRepository->findLastThreeFavoritesByUser(),
         ]);
